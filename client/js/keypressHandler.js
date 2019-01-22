@@ -9,7 +9,7 @@ $('body').on('keydown', (event) => {
 });
 
 $('.move-button').on('click', function() {
-  SwimTeam.move('up'.toLowerCase());
+  postData.create(SwimTeam.move());
 })
 
 console.log('Client is running in the browser!');

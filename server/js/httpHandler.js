@@ -1,18 +1,15 @@
 const headers = require('./cors');
-
-var data = {
-  results: []
-};
+const queue = require('./messageQueue');
 
 var requestHandler = function(request, response) {
-  //var header = headers;
+
   headers['Content-Type'] = 'text/plain';
   var statusCode;
 
   if (request.method === 'GET') {
     statusCode = 200;
     response.writeHead(statusCode, headers);
-    response.end(JSON.stringify(data));
+    response.end(JSON.stringify(messages));
   }
   if (request.method === 'POST') {
     statusCode = 201;
@@ -21,7 +18,7 @@ var requestHandler = function(request, response) {
       body.push(chunks);
     }).on('end', () => {
       var input = JSON.parse(Buffer.concat(body).toString());
-      data.results.push(input);
+      messages.push(input);
       response.writeHead(statusCode, headers);
       response.end(JSON.stringify(input));
     })
@@ -30,9 +27,12 @@ var requestHandler = function(request, response) {
     statusCode = 200;
     response.writeHead(statusCode, headers);
     response.end();
+  } else {
+    statusCode = 404;
+    response.writeHead(statusCode, headers);
+    response.end('PAGE NOT FOUND');
   }
 }
-module.exports = (request, response) => {
-  res.writeHead(200, headers);
-  res.end();
+module.exports = {
+  requestHandler
 };
