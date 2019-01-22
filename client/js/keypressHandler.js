@@ -9,7 +9,7 @@ $('body').on('keydown', (event) => {
 });
 
 $('.move-button').on('click', function() {
-  postData.create(SwimTeam.move());
+  postData.create(SwimTeam.move);
 })
 
 console.log('Client is running in the browser!');

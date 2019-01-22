@@ -3,21 +3,23 @@
 
   const serverUrl = 'http://127.0.0.1:3000';
 
-  var postData = {
+  
+})();
+
+var postData = {
     
-    create: function(successCB, errorCB = null) {
+    create: function(successCB) {
       $.ajax({
         type: 'GET',
         url: 'http://127.0.0.1:3000',
         contentType: "application/json",
         success: function(message) {
           successCB(message);
+          console.log('hello')
         },
-        error: errorCB || function(error) {
-          console.error('FAILED TO CREATE MESSAGE');
+        error: function() {
+          console.log('FAILED TO CREATE MESSAGE');
         }
      });
     }
   }
-  
-})();
